@@ -1,0 +1,38 @@
+[project]
+name = "cv-screening-pipeline"
+version = "2.0.0"
+description = "CV screening pipeline: Drive ingestion, Gemini extraction, hybrid scoring, human-in-the-loop routing"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["."]
+addopts = "-q --strict-markers --basetemp=.pytest-tmp"
+markers = [
+    "live: hits the real Gemini API; skipped unless GEMINI_API_KEYS is set",
+]
+filterwarnings = [
+    "error",
+    # Starlette's TestClient nudges towards httpx2; nothing for us to act on.
+    "ignore:Using `httpx` with `starlette.testclient`:UserWarning",
+    "ignore::DeprecationWarning:fastapi.*",
+    "ignore::DeprecationWarning:starlette.*",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["backend"]
+omit = [
+    "backend/tests/*",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "\\.\\.\\.$",
+]

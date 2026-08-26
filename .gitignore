@@ -1,0 +1,21 @@
+# Secrets — never commit these. Use .env.example as the template.
+.env
+*.json.key
+service-account*.json
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp/
+.coverage
+htmlcov/
+
+# Application data: the SQLite database, archived CVs and extracted text,
+# and the generated synthetic corpus (regenerate with generate_test_data.py).
+data/
+
+# Frontend
+node_modules/
+dist/
